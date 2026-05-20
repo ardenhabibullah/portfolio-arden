@@ -4,13 +4,10 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export const dynamic = "force-dynamic";
-
-export default function Page() {
+export default function PageClient() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
 
-  // ✅ BACK LOGIC (INI YANG PENTING)
   const backHref = from === "all" ? "/projects/all" : "/#projects";
 
   const project = {
@@ -37,7 +34,7 @@ export default function Page() {
     <main className="bg-black text-white min-h-screen px-6 py-20">
       <div className="max-w-6xl mx-auto">
 
-        {/* BACK BUTTON (FIXED) */}
+        {/* BACK BUTTON */}
         <Link
           href={backHref}
           className="text-sm text-zinc-400 hover:text-white mb-10 inline-block"
@@ -60,7 +57,6 @@ export default function Page() {
 
         {/* IMAGE CAROUSEL */}
         <div className="relative mb-16">
-
           <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-black">
             <img
               src={images[index]}
@@ -72,14 +68,14 @@ export default function Page() {
 
           <button
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full hover:bg-black"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full"
           >
             ←
           </button>
 
           <button
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full hover:bg-black"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full"
           >
             →
           </button>
@@ -91,7 +87,6 @@ export default function Page() {
 
         {/* CONTENT */}
         <div className="grid md:grid-cols-2 gap-12">
-
           <section>
             <h2 className="text-2xl font-bold mb-4">Overview</h2>
             <p className="text-zinc-400 leading-relaxed">
@@ -105,7 +100,6 @@ export default function Page() {
               Next.js · TypeScript · Tailwind CSS · Leaflet Maps
             </p>
           </section>
-
         </div>
 
         {/* ZOOM */}
@@ -117,10 +111,10 @@ export default function Page() {
             <img
               src={zoom}
               className="max-w-[90%] max-h-[90%] object-contain"
+              alt="zoom"
             />
           </div>
         )}
-
       </div>
     </main>
   );
