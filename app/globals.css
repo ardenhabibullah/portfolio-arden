@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +12,135 @@
   }
 }
 
+/* =========================
+   BASE STYLE
+========================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================
+   MARQUEE
+========================= */
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+  will-change: transform;
+}
+
+/* =========================
+   GLOBAL ANIMATIONS
+========================= */
+
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-slow-spin {
+  animation: slow-spin 45s linear infinite;
+  will-change: transform;
+}
+
+@keyframes float {
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -15px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.animate-glow {
+  animation: glow 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* =========================
+   FIX TRANSITION GLOBAL (IMPORTANT)
+========================= */
+
+* {
+  transition-property: color, background-color, border-color, transform, opacity, filter;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* =========================
+   SWIPER FOCUS BLUR EFFECT (MAIN FEATURE)
+========================= */
+
+.swiper-slide {
+  transition: filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
+  filter: blur(4px);
+  transform: scale(0.95);
+  opacity: 0.5;
+}
+
+.swiper-slide {
+  transition: filter 0.5s ease, opacity 0.5s ease;
+  filter: blur(6px);
+  opacity: 0.35;
+}
+
+/* CENTER (FOCUS UTAMA) */
+.swiper-slide-active {
+  filter: blur(0px);
+  opacity: 1;
+  z-index: 10;
+}
+
+/* KIRI KANAN (FULL SIZE, HANYA DIBEDAKAN VISUAL) */
+.swiper-slide-prev,
+.swiper-slide-next {
+  filter: blur(3px);
+  opacity: 0.6;
+}
+.swiper-slide {
+  will-change: filter, opacity;
 }
