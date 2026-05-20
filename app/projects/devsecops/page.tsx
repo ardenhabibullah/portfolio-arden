@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
-
-export const dynamic = "force-dynamic";
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
+  // ❌ REMOVED useSearchParams (fix Vercel build crash)
+  // const searchParams = useSearchParams();
+  // const from = searchParams.get("from");
+
+  const from = null; // safe fallback
 
   const backHref = from === "all" ? "/projects/all" : "/#projects";
 
@@ -65,6 +65,7 @@ export default function Page() {
               src={images[index]}
               onClick={() => setZoom(images[index])}
               className="w-full h-full object-contain cursor-zoom-in"
+              alt="project"
             />
           </div>
 
@@ -87,15 +88,13 @@ export default function Page() {
           </div>
         </div>
 
-        {/* CONTENT GRID */}
+        {/* CONTENT */}
         <div className="grid md:grid-cols-2 gap-12">
 
           <div className="space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Overview
-              </h2>
+              <h2 className="text-2xl font-bold mb-4">Overview</h2>
               <p className="text-zinc-400 leading-relaxed">
                 Built an automated Android application security testing system that integrates
                 SAST and DAST tools directly into CI/CD pipelines to detect vulnerabilities early
@@ -104,9 +103,7 @@ export default function Page() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Tech Stack
-              </h2>
+              <h2 className="text-2xl font-bold mb-4">Tech Stack</h2>
               <p className="text-zinc-400 leading-relaxed">
                 Jenkins · Docker · CI/CD Pipelines · OWASP Mobile Top 10 · SAST · DAST · Android Security Testing · Automation · Bash · Git
               </p>
@@ -117,9 +114,7 @@ export default function Page() {
           <div className="space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Impact
-              </h2>
+              <h2 className="text-2xl font-bold mb-4">Impact</h2>
 
               <div className="space-y-6 text-zinc-400">
 
@@ -166,15 +161,14 @@ export default function Page() {
         </div>
 
         <section className="mt-20">
-          <h2 className="text-2xl font-bold mb-4">
-            Summary
-          </h2>
+          <h2 className="text-2xl font-bold mb-4">Summary</h2>
           <p className="text-zinc-400 leading-relaxed max-w-3xl">
             Designed and implemented a full DevSecOps automation pipeline for Android applications,
             improving security visibility, deployment efficiency, and continuous testing through CI/CD integration.
           </p>
         </section>
 
+        {/* ZOOM */}
         {zoom && (
           <div
             onClick={() => setZoom(null)}
@@ -183,6 +177,7 @@ export default function Page() {
             <img
               src={zoom}
               className="max-w-[90%] max-h-[90%] object-contain"
+              alt="zoom"
             />
           </div>
         )}

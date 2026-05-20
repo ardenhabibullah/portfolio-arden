@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -8,9 +8,6 @@ export const dynamic = "force-dynamic";
 
 export default function Page() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const from = searchParams.get("from");
 
   const images = [
     "/pln1.jpeg",
@@ -33,11 +30,7 @@ export default function Page() {
   };
 
   const handleBack = () => {
-    if (from === "all") {
-      router.push("/projects/all");
-    } else {
-      router.push("/#projects");
-    }
+    router.push("/#projects");
   };
 
   return (
@@ -62,7 +55,7 @@ export default function Page() {
         </h1>
 
         <p className="text-zinc-400 mb-10">
-          Bandung, West Java · Sep 2022 – Jan 2026 (Active Development: Jan 2025 – Mar 2025)
+          Bandung, West Java · Sep 2022 – Jan 2026
         </p>
 
         {/* CAROUSEL */}
@@ -73,19 +66,20 @@ export default function Page() {
               src={images[index]}
               onClick={() => setZoom(images[index])}
               className="w-full h-full object-contain cursor-zoom-in"
+              alt="pln project"
             />
           </div>
 
           <button
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white hover:bg-black"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white"
           >
             ←
           </button>
 
           <button
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white hover:bg-black"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white"
           >
             →
           </button>
@@ -95,88 +89,56 @@ export default function Page() {
           </div>
         </div>
 
-        {/* CONTENT GRID */}
+        {/* CONTENT */}
         <div className="grid md:grid-cols-2 gap-12">
 
-          {/* LEFT */}
-          <div className="space-y-10">
+          <section>
+            <h2 className="text-2xl font-bold mb-4">Overview</h2>
+            <p className="text-zinc-400">
+              Mobile monitoring system for PLN field operations to manage tree risk inspections.
+            </p>
+          </section>
 
-            <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Overview
-              </h2>
-              <p className="text-zinc-400 leading-relaxed">
-                Developed a mobile monitoring system for PLN field operations to manage tree risk inspections
-                and preventive maintenance activities near power line infrastructure.
-              </p>
-            </section>
+          <section>
+            <h2 className="text-2xl font-bold mb-4">Tech Stack</h2>
+            <p className="text-zinc-400">
+              Flutter · Dart · Firebase · REST API · Field Monitoring
+            </p>
+          </section>
 
-            <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Tech Stack
-              </h2>
-              <p className="text-zinc-400 leading-relaxed">
-                Flutter · Dart · Firebase · REST API · Mobile Systems · Field Monitoring
-              </p>
-            </section>
-
-          </div>
-
-          {/* RIGHT */}
-          <div className="space-y-10">
-
-            <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Impact
-              </h2>
-
-              <div className="space-y-6 text-zinc-400">
-
-                <div>
-                  <p className="text-white font-medium">
-                    Field Inspection System
-                  </p>
-                  <p>
-                    Improved efficiency of tree-risk inspection workflows in PLN field operations.
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-white font-medium">
-                    Real-time Sync
-                  </p>
-                  <p>
-                    Enabled real-time reporting using Firebase and REST API integration.
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-white font-medium">
-                    Operational Visibility
-                  </p>
-                  <p>
-                    Enhanced monitoring of preventive maintenance near power infrastructure.
-                  </p>
-                </div>
-
-              </div>
-            </section>
-
-          </div>
         </div>
+
+        {/* IMPACT */}
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold mb-4">Impact</h2>
+
+          <div className="space-y-4 text-zinc-400">
+            <div>
+              <p className="text-white font-medium">Field Inspection System</p>
+              <p>Improved inspection workflow efficiency.</p>
+            </div>
+
+            <div>
+              <p className="text-white font-medium">Real-time Sync</p>
+              <p>Enabled reporting with Firebase.</p>
+            </div>
+
+            <div>
+              <p className="text-white font-medium">Operational Visibility</p>
+              <p>Better monitoring of maintenance tasks.</p>
+            </div>
+          </div>
+        </section>
 
         {/* SUMMARY */}
         <section className="mt-20">
-          <h2 className="text-2xl font-bold mb-4">
-            Summary
-          </h2>
-          <p className="text-zinc-400 leading-relaxed max-w-3xl">
-            Delivered a field monitoring system that improved inspection efficiency,
-            real-time reporting, and operational visibility for PLN infrastructure maintenance.
+          <h2 className="text-2xl font-bold mb-4">Summary</h2>
+          <p className="text-zinc-400 max-w-3xl">
+            Delivered a field monitoring system improving inspection efficiency and real-time reporting.
           </p>
         </section>
 
-        {/* ZOOM MODAL */}
+        {/* ZOOM */}
         {zoom && (
           <div
             onClick={() => setZoom(null)}
@@ -185,6 +147,7 @@ export default function Page() {
             <img
               src={zoom}
               className="max-w-[90%] max-h-[90%] object-contain"
+              alt="zoom"
             />
           </div>
         )}

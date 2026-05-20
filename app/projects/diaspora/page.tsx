@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+export default function ProjectClient() {
+  // ❌ REMOVED useSearchParams (fix Vercel build error)
+  // const searchParams = useSearchParams();
+  // const from = searchParams.get("from");
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
+  const from = null; // safe fallback
 
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
+  const backHref = "/#projects";
 
   const images = [
     "/diaspora1.png",
@@ -73,6 +73,7 @@ export default function Page() {
               src={images[index]}
               onClick={() => setZoom(images[index])}
               className="w-full h-full object-contain cursor-zoom-in"
+              alt="diaspora"
             />
           </div>
 
@@ -101,9 +102,7 @@ export default function Page() {
           <div className="space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Overview
-              </h2>
+              <h2 className="text-2xl font-bold mb-4">Overview</h2>
               <p className="text-zinc-400 leading-relaxed">
                 Built an offline-first emergency coordination platform designed for diaspora monitoring,
                 enabling real-time location tracking and rapid response coordination during critical events.
@@ -111,9 +110,7 @@ export default function Page() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Key Features
-              </h2>
+              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
               <p className="text-zinc-400 leading-relaxed">
                 Realtime GPS tracking · Offline data sync · Push notifications · Emergency status reporting · Map-based dashboard
               </p>
@@ -124,34 +121,26 @@ export default function Page() {
           <div className="space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">
-                Impact
-              </h2>
+              <h2 className="text-2xl font-bold mb-4">Impact</h2>
 
               <div className="space-y-6 text-zinc-400">
 
                 <div>
-                  <p className="text-white font-medium">
-                    Realtime Coordination
-                  </p>
+                  <p className="text-white font-medium">Realtime Coordination</p>
                   <p>
                     Improved emergency response visibility with live location tracking across users.
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">
-                    Offline-First Reliability
-                  </p>
+                  <p className="text-white font-medium">Offline-First Reliability</p>
                   <p>
                     System continues functioning even in unstable network conditions using local sync strategy.
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">
-                    Faster Response Flow
-                  </p>
+                  <p className="text-white font-medium">Faster Response Flow</p>
                   <p>
                     Reduced manual coordination delays through automated alerts and status updates.
                   </p>
@@ -163,16 +152,16 @@ export default function Page() {
           </div>
         </div>
 
+        {/* SUMMARY */}
         <section className="mt-20">
-          <h2 className="text-2xl font-bold mb-4">
-            Summary
-          </h2>
+          <h2 className="text-2xl font-bold mb-4">Summary</h2>
           <p className="text-zinc-400 leading-relaxed max-w-3xl">
             Developed a resilient monitoring system focused on real-time coordination and offline-first reliability
             for emergency and diaspora tracking scenarios.
           </p>
         </section>
 
+        {/* ZOOM */}
         {zoom && (
           <div
             onClick={() => setZoom(null)}
@@ -181,6 +170,7 @@ export default function Page() {
             <img
               src={zoom}
               className="max-w-[90%] max-h-[90%] object-contain"
+              alt="zoom"
             />
           </div>
         )}

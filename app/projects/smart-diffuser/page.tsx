@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 type Project = {
   title: string;
@@ -33,6 +36,9 @@ export default function Page({
 }) {
   const project = projects[params.slug];
 
+  const [index, setIndex] = useState(0);
+  const [zoom, setZoom] = useState<string | null>(null);
+
   if (!project) {
     return (
       <div className="text-white p-10">
@@ -40,9 +46,6 @@ export default function Page({
       </div>
     );
   }
-
-  const [index, setIndex] = useState(0);
-  const [zoom, setZoom] = useState<string | null>(null);
 
   const images = project.images;
 
@@ -71,12 +74,14 @@ export default function Page({
           {project.desc}
         </p>
 
-        {/* IMAGE SLIDER SIMPLE */}
+        {/* IMAGE SLIDER */}
         <div className="relative mt-10">
+
           <img
             src={images[index]}
             className="w-full h-[420px] object-cover rounded-xl cursor-zoom-in"
             onClick={() => setZoom(images[index])}
+            alt="project"
           />
 
           {/* LEFT */}
@@ -104,11 +109,12 @@ export default function Page({
         {zoom && (
           <div
             onClick={() => setZoom(null)}
-            className="fixed inset-0 bg-black/90 flex items-center justify-center"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
           >
             <img
               src={zoom}
-              className="max-w-[90%] max-h-[90%]"
+              className="max-w-[90%] max-h-[90%] object-contain"
+              alt="zoom"
             />
           </div>
         )}

@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
+  // ❌ REMOVED useSearchParams (fix Vercel build crash)
+
+  const from = null;
 
   const images = [
     "/bogart1.png",
@@ -41,8 +41,8 @@ export default function Page() {
     );
   };
 
-  // ✅ BACK LOGIC FIX
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
+  // ✅ SAFE BACK LOGIC (no query params)
+  const backHref = "/#projects";
 
   return (
     <main className="bg-black text-white min-h-screen px-6 py-20">

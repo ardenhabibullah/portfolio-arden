@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export const dynamic = "force-dynamic";
-
 export default function Page() {
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
-
   const images = ["/beauty1.png", "/beauty2.png", "/beauty3.png"];
 
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
+  // ❌ HAPUS useSearchParams
+  const backHref = "/#projects";
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -78,7 +73,7 @@ export default function Page() {
         </a>
       </div>
 
-      {/* LIGHTBOX / ZOOM MODAL */}
+      {/* LIGHTBOX */}
       {selectedImage && (
         <div
           onClick={() => setSelectedImage(null)}

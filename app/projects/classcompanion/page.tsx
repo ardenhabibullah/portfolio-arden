@@ -9,7 +9,7 @@ export default function Page() {
     "/classcompanion3.png",
   ];
 
-  // ❌ HAPUS useSearchParams
+  // BACK SAFE (tanpa query param biar tidak crash build)
   const backHref = "/#projects";
 
   return (
