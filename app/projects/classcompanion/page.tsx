@@ -1,21 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-
-export const dynamic = "force-dynamic";
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
-
   const images = [
     "/classcompanion1.png",
     "/classcompanion2.png",
     "/classcompanion3.png",
   ];
 
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
+  // ❌ HAPUS useSearchParams
+  const backHref = "/#projects";
 
   return (
     <main className="bg-black text-white min-h-screen px-4 sm:px-6 py-12 sm:py-20">
