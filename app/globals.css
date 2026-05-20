@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* =========================
+   ROOT
+========================= */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -27,6 +31,16 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================
+   GLOBAL TRANSITION
+========================= */
+
+* {
+  transition-property: color, background-color, border-color, transform, opacity, filter;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
 }
 
 /* =========================
@@ -102,45 +116,35 @@ body {
 }
 
 /* =========================
-   FIX TRANSITION GLOBAL (IMPORTANT)
-========================= */
-
-* {
-  transition-property: color, background-color, border-color, transform, opacity, filter;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-}
-
-/* =========================
-   SWIPER FOCUS BLUR EFFECT (MAIN FEATURE)
+   SWIPER FOCUS EFFECT (FINAL FIX)
 ========================= */
 
 .swiper-slide {
   transition: filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
-  filter: blur(4px);
-  transform: scale(0.95);
-  opacity: 0.5;
-}
-
-.swiper-slide {
-  transition: filter 0.5s ease, opacity 0.5s ease;
   filter: blur(6px);
   opacity: 0.35;
+  transform: scale(0.92);
+  will-change: transform, filter, opacity;
 }
 
-/* CENTER (FOCUS UTAMA) */
+/* CENTER SLIDE (FOCUS UTAMA) */
 .swiper-slide-active {
   filter: blur(0px);
   opacity: 1;
+  transform: scale(1);
   z-index: 10;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-/* KIRI KANAN (FULL SIZE, HANYA DIBEDAKAN VISUAL) */
+/* SIDE SLIDES */
 .swiper-slide-prev,
 .swiper-slide-next {
-  filter: blur(3px);
+  filter: blur(2.5px);
   opacity: 0.6;
+  transform: scale(0.96);
 }
-.swiper-slide {
-  will-change: filter, opacity;
+
+/* OPTIONAL: sedikit hover polish */
+.swiper-slide-active:hover {
+  transform: scale(1.03);
 }
