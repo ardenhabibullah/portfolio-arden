@@ -1,16 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Page() {
-  // ❌ REMOVED useSearchParams (fix Vercel build crash)
-  // const searchParams = useSearchParams();
-  // const from = searchParams.get("from");
+  const [backHref, setBackHref] = useState("/#projects");
 
-  const from = null; // safe fallback
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");
 
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
+    if (from === "all") {
+      setBackHref("/projects/all");
+    } else {
+      setBackHref("/#projects"); // default = HOME
+    }
+  }, []);
 
   const images = [
     "/project3.jpg",
@@ -22,26 +27,21 @@ export default function Page() {
   const [index, setIndex] = useState(0);
   const [zoom, setZoom] = useState<string | null>(null);
 
-  const next = () => {
-    setIndex((prev) => (prev + 1) % images.length);
-  };
+  const next = () => setIndex((p) => (p + 1) % images.length);
 
-  const prev = () => {
-    setIndex((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
-    );
-  };
+  const prev = () =>
+    setIndex((p) => (p === 0 ? images.length - 1 : p - 1));
 
   return (
-    <main className="bg-black text-white min-h-screen px-6 py-20">
+    <main className="bg-black text-white min-h-screen px-4 sm:px-6 py-12 sm:py-20">
       <div className="max-w-6xl mx-auto">
 
         {/* BACK */}
         <Link
           href={backHref}
-          className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-10"
+          className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-8 sm:mb-10 transition"
         >
-          ← Kembali ke Projects
+          ← Back
         </Link>
 
         {/* HEADER */}
@@ -49,36 +49,36 @@ export default function Page() {
           SECURITY AUTOMATION · DEVSECOPS ENGINEERING
         </p>
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">
           DevSecOps CI/CD Security Framework
         </h1>
 
-        <p className="text-zinc-400 mb-10">
+        <p className="text-zinc-400 mb-8 sm:mb-10 text-sm sm:text-base">
           Android security testing automation system integrating SAST & DAST into CI/CD pipelines
         </p>
 
         {/* IMAGE CAROUSEL */}
-        <div className="relative mb-16">
+        <div className="relative mb-12 sm:mb-16">
 
-          <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-black">
+          <div className="w-full h-[240px] sm:h-[320px] md:h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-black">
             <img
               src={images[index]}
               onClick={() => setZoom(images[index])}
-              className="w-full h-full object-contain cursor-zoom-in"
+              className="w-full h-full object-contain cursor-zoom-in transition"
               alt="project"
             />
           </div>
 
           <button
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white hover:bg-black"
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white"
           >
             ←
           </button>
 
           <button
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white hover:bg-black"
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full text-white"
           >
             →
           </button>
@@ -89,68 +89,57 @@ export default function Page() {
         </div>
 
         {/* CONTENT */}
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12">
 
-          <div className="space-y-10">
+          <div className="space-y-8 sm:space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Overview</h2>
-              <p className="text-zinc-400 leading-relaxed">
-                Built an automated Android application security testing system that integrates
-                SAST and DAST tools directly into CI/CD pipelines to detect vulnerabilities early
-                in the development lifecycle.
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Overview</h2>
+              <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
+                Built an automated Android application security testing system.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Tech Stack</h2>
-              <p className="text-zinc-400 leading-relaxed">
-                Jenkins · Docker · CI/CD Pipelines · OWASP Mobile Top 10 · SAST · DAST · Android Security Testing · Automation · Bash · Git
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Tech Stack</h2>
+              <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
+                Jenkins · Docker · CI/CD · SAST · DAST · OWASP · Git
               </p>
             </section>
 
           </div>
 
-          <div className="space-y-10">
+          <div className="space-y-8 sm:space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Impact</h2>
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Impact</h2>
 
-              <div className="space-y-6 text-zinc-400">
+              <div className="space-y-5 text-zinc-400 text-sm sm:text-base">
 
                 <div>
                   <p className="text-white font-medium">
                     CI/CD Security Automation
                   </p>
                   <p>
-                    Integrated automated security scanning into Jenkins pipelines for continuous vulnerability detection during builds.
+                    Automated vulnerability detection in pipeline.
                   </p>
                 </div>
 
                 <div>
                   <p className="text-white font-medium">
-                    OWASP Compliance Testing
+                    OWASP Compliance
                   </p>
                   <p>
-                    Implemented security validation workflows based on OWASP Mobile Top 10 risk categories.
+                    Applied mobile security standards.
                   </p>
                 </div>
 
                 <div>
                   <p className="text-white font-medium">
-                    Centralized Security Monitoring
+                    Monitoring Dashboard
                   </p>
                   <p>
-                    Built dashboards to track vulnerabilities and CI/CD security results in real-time.
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-white font-medium">
-                    Reduced Manual Effort
-                  </p>
-                  <p>
-                    Automated security testing workflows, significantly reducing manual validation workload.
+                    Real-time security tracking system.
                   </p>
                 </div>
 
@@ -160,11 +149,11 @@ export default function Page() {
           </div>
         </div>
 
-        <section className="mt-20">
-          <h2 className="text-2xl font-bold mb-4">Summary</h2>
-          <p className="text-zinc-400 leading-relaxed max-w-3xl">
-            Designed and implemented a full DevSecOps automation pipeline for Android applications,
-            improving security visibility, deployment efficiency, and continuous testing through CI/CD integration.
+        {/* SUMMARY */}
+        <section className="mt-12 sm:mt-20">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4">Summary</h2>
+          <p className="text-zinc-400 max-w-3xl leading-relaxed text-sm sm:text-base">
+            DevSecOps automation pipeline for Android security testing.
           </p>
         </section>
 
@@ -172,11 +161,11 @@ export default function Page() {
         {zoom && (
           <div
             onClick={() => setZoom(null)}
-            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
           >
             <img
               src={zoom}
-              className="max-w-[90%] max-h-[90%] object-contain"
+              className="max-w-full max-h-full object-contain"
               alt="zoom"
             />
           </div>

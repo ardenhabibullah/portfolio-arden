@@ -1,16 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProjectClient() {
-  // ❌ REMOVED useSearchParams (fix Vercel build error)
-  // const searchParams = useSearchParams();
-  // const from = searchParams.get("from");
+  const [backHref, setBackHref] = useState("/#projects");
 
-  const from = null; // safe fallback
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");
 
-  const backHref = "/#projects";
+    if (from === "all") {
+      setBackHref("/projects/all");
+    } else {
+      setBackHref("/#projects"); // ✅ HOME DEFAULT
+    }
+  }, []);
 
   const images = [
     "/diaspora1.png",
@@ -21,7 +26,7 @@ export default function ProjectClient() {
     "/diaspora18.png",
     "/diaspora4.png",
     "/diaspora9.png",
-    "/diaspora 10.png",
+    "/diaspora10.png",
     "/diaspora11.png",
     "/diaspora12.png",
     "/diaspora13.png",
@@ -30,26 +35,32 @@ export default function ProjectClient() {
   const [index, setIndex] = useState(0);
   const [zoom, setZoom] = useState<string | null>(null);
 
-  const next = () => {
-    setIndex((prev) => (prev + 1) % images.length);
-  };
+  const next = () => setIndex((p) => (p + 1) % images.length);
 
-  const prev = () => {
-    setIndex((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
-    );
-  };
+  const prev = () =>
+    setIndex((p) => (p === 0 ? images.length - 1 : p - 1));
 
   return (
-    <main className="bg-black text-white min-h-screen px-6 py-20">
+    <main className="bg-black text-white min-h-screen px-4 sm:px-6 py-12 sm:py-20">
       <div className="max-w-6xl mx-auto">
+
+        {/* NAV */}
+        <div className="flex gap-4 sm:gap-6 mb-8 sm:mb-10 text-sm">
+          <Link href="/" className="text-zinc-400 hover:text-white transition">
+            Home
+          </Link>
+
+          <Link href="/projects/all" className="text-zinc-400 hover:text-white transition">
+            All Projects
+          </Link>
+        </div>
 
         {/* BACK */}
         <Link
           href={backHref}
-          className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-10"
+          className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-8 sm:mb-10 transition"
         >
-          ← Kembali ke Projects
+          ← Back 
         </Link>
 
         {/* HEADER */}
@@ -57,18 +68,18 @@ export default function ProjectClient() {
           MONITORING SYSTEM · REALTIME PLATFORM
         </p>
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">
           Diaspora Monitoring Platform
         </h1>
 
-        <p className="text-zinc-400 mb-10">
+        <p className="text-zinc-400 mb-8 sm:mb-10 text-sm sm:text-base">
           Emergency coordination system with realtime tracking & offline-first support
         </p>
 
         {/* CAROUSEL */}
-        <div className="relative mb-16">
+        <div className="relative mb-12 sm:mb-16">
 
-          <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-black">
+          <div className="w-full h-[240px] sm:h-[320px] md:h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-black">
             <img
               src={images[index]}
               onClick={() => setZoom(images[index])}
@@ -96,54 +107,47 @@ export default function ProjectClient() {
           </div>
         </div>
 
-        {/* CONTENT GRID */}
-        <div className="grid md:grid-cols-2 gap-12">
+        {/* CONTENT */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12">
 
-          <div className="space-y-10">
+          <div className="space-y-8 sm:space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Overview</h2>
-              <p className="text-zinc-400 leading-relaxed">
-                Built an offline-first emergency coordination platform designed for diaspora monitoring,
-                enabling real-time location tracking and rapid response coordination during critical events.
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Overview</h2>
+              <p className="text-zinc-400 leading-relaxed text-sm sm:text-base">
+                Built an offline-first emergency coordination platform designed for diaspora monitoring.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
-              <p className="text-zinc-400 leading-relaxed">
-                Realtime GPS tracking · Offline data sync · Push notifications · Emergency status reporting · Map-based dashboard
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Key Features</h2>
+              <p className="text-zinc-400 text-sm sm:text-base">
+                Realtime GPS tracking · Offline sync · Push notifications · Emergency reporting
               </p>
             </section>
 
           </div>
 
-          <div className="space-y-10">
+          <div className="space-y-8 sm:space-y-10">
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Impact</h2>
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Impact</h2>
 
-              <div className="space-y-6 text-zinc-400">
+              <div className="space-y-5 text-zinc-400 text-sm sm:text-base">
 
                 <div>
                   <p className="text-white font-medium">Realtime Coordination</p>
-                  <p>
-                    Improved emergency response visibility with live location tracking across users.
-                  </p>
+                  <p>Improved emergency visibility with live tracking.</p>
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">Offline-First Reliability</p>
-                  <p>
-                    System continues functioning even in unstable network conditions using local sync strategy.
-                  </p>
+                  <p className="text-white font-medium">Offline Reliability</p>
+                  <p>System still works without stable internet.</p>
                 </div>
 
                 <div>
-                  <p className="text-white font-medium">Faster Response Flow</p>
-                  <p>
-                    Reduced manual coordination delays through automated alerts and status updates.
-                  </p>
+                  <p className="text-white font-medium">Faster Response</p>
+                  <p>Reduced delay in emergency coordination.</p>
                 </div>
 
               </div>
@@ -153,11 +157,10 @@ export default function ProjectClient() {
         </div>
 
         {/* SUMMARY */}
-        <section className="mt-20">
-          <h2 className="text-2xl font-bold mb-4">Summary</h2>
-          <p className="text-zinc-400 leading-relaxed max-w-3xl">
-            Developed a resilient monitoring system focused on real-time coordination and offline-first reliability
-            for emergency and diaspora tracking scenarios.
+        <section className="mt-12 sm:mt-20">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4">Summary</h2>
+          <p className="text-zinc-400 max-w-3xl text-sm sm:text-base">
+            Built a resilient real-time monitoring system for emergency coordination with offline-first architecture.
           </p>
         </section>
 
@@ -165,11 +168,11 @@ export default function ProjectClient() {
         {zoom && (
           <div
             onClick={() => setZoom(null)}
-            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
           >
             <img
               src={zoom}
-              className="max-w-[90%] max-h-[90%] object-contain"
+              className="max-w-full max-h-full object-contain"
               alt="zoom"
             />
           </div>
