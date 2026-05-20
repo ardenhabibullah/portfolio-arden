@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
 
-export default function PageClient() {
+export default function Page() {
   const searchParams = useSearchParams();
-  const from = searchParams.get("from");
+
+  const [from, setFrom] = useState<string | null>(null);
+
+  // ✅ aman untuk build Vercel
+  useEffect(() => {
+    setFrom(searchParams.get("from"));
+  }, [searchParams]);
 
   const backHref = from === "all" ? "/projects/all" : "/#projects";
 
@@ -57,6 +63,7 @@ export default function PageClient() {
 
         {/* IMAGE CAROUSEL */}
         <div className="relative mb-16">
+
           <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-white/10 bg-black">
             <img
               src={images[index]}
@@ -66,30 +73,22 @@ export default function PageClient() {
             />
           </div>
 
-          <button
-            onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full"
-          >
+          <button onClick={prev} className="absolute left-3 top-1/2">
             ←
           </button>
 
-          <button
-            onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 px-3 py-2 rounded-full"
-          >
+          <button onClick={next} className="absolute right-3 top-1/2">
             →
           </button>
 
-          <div className="absolute bottom-3 right-4 text-xs bg-black/60 px-3 py-1 rounded-full">
-            {index + 1} / {images.length}
-          </div>
         </div>
 
         {/* CONTENT */}
         <div className="grid md:grid-cols-2 gap-12">
+
           <section>
             <h2 className="text-2xl font-bold mb-4">Overview</h2>
-            <p className="text-zinc-400 leading-relaxed">
+            <p className="text-zinc-400">
               I built an interactive web platform that displays barber shops and salons across Greater Bandung.
             </p>
           </section>
@@ -100,21 +99,19 @@ export default function PageClient() {
               Next.js · TypeScript · Tailwind CSS · Leaflet Maps
             </p>
           </section>
+
         </div>
 
         {/* ZOOM */}
         {zoom && (
           <div
             onClick={() => setZoom(null)}
-            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center"
           >
-            <img
-              src={zoom}
-              className="max-w-[90%] max-h-[90%] object-contain"
-              alt="zoom"
-            />
+            <img src={zoom} className="max-w-[90%] max-h-[90%]" />
           </div>
         )}
+
       </div>
     </main>
   );
