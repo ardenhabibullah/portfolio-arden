@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
+  // ❌ HAPUS useSearchParams (biar tidak crash di Vercel build)
+
+  const from = null; // aman
+
+  const backHref = "/#projects";
 
   const images = [
     "/bogart4.png",
@@ -22,11 +24,9 @@ export default function Page() {
   const [zoom, setZoom] = useState<string | null>(null);
 
   const next = () => setIndex((p) => (p + 1) % images.length);
+
   const prev = () =>
     setIndex((p) => (p === 0 ? images.length - 1 : p - 1));
-
-  // ✅ BACK LOGIC (penting)
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
 
   return (
     <main className="bg-black text-white min-h-screen px-6 py-20">
