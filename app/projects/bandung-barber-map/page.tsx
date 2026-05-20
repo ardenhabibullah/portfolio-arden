@@ -1,20 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function Page() {
-  const searchParams = useSearchParams();
+  // ❌ HAPUS useSearchParams TOTAL
 
-  const [from, setFrom] = useState<string | null>(null);
-
-  // ✅ aman untuk build Vercel
-  useEffect(() => {
-    setFrom(searchParams.get("from"));
-  }, [searchParams]);
-
-  const backHref = from === "all" ? "/projects/all" : "/#projects";
+  const backHref = "/#projects";
 
   const project = {
     slug: "bandung-barber-map",
