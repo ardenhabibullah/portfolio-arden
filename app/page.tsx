@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import TechStack from "./components/TechStackWrapper";
 import Projects from "./components/Projects";
 import Experience from "./components/Experience";
+import Certifications from "./components/Certifications";
 import Contact from "./components/Contact";
 
 export default function Page() {
@@ -28,6 +29,7 @@ export default function Page() {
       <TechStack />
       <Projects />
       <Experience />
+      <Certifications />
       <Contact />
     </main>
   );

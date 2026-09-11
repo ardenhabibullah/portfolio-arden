@@ -21,16 +21,7 @@ export default function Experience() {
       images: ["/bogart1.png", "/bogart2.png", "/bogart3.png", "/bogart4.png"],
       layout: "grid",
     },
-    {
-      tag: "Mobile Monitoring System",
-      tagColor: "text-yellow-400",
-      title: "Full-stack Developer — GridGuard (PLN)",
-      date: "Jan 2025 – Mar 2025",
-      desc:
-        "Developed a monitoring application for PLN field operations to manage tree-risk inspections and preventive maintenance activities near power line infrastructure using Flutter, Firebase, and REST APIs.",
-      images: ["/pln1.jpeg", "/pln2.jpg", "/pln3.jpg", "/pln4.jpg"],
-      layout: "horizontal",
-    },
+  
     {
       tag: "Disaster Monitoring Platform",
       tagColor: "text-cyan-400",

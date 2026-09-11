@@ -46,14 +46,7 @@ export default function Projects() {
         desc: "Offline-first emergency coordination system with realtime location tracking and push notifications.",
         color: "text-cyan-400",
       },
-      {
-        slug: "devsecops",
-        img: "/project3.jpg",
-        tag: "Security Automation",
-        title: "DevSecOps CI/CD Security Framework",
-        desc: "CI/CD integrated mobile security testing pipeline using Jenkins, Docker, SAST, and DAST workflows.",
-        color: "text-green-400",
-      },
+      
       {
         slug: "bip-finance",
         img: "/bogart4.png",
@@ -63,11 +56,11 @@ export default function Projects() {
         color: "text-blue-400",
       },
       {
-        slug: "gridguard",
-        img: "/pln1.jpeg",
-        tag: "Field Monitoring System",
-        title: "GridGuard (PLN) – Tree Risk Monitoring Application",
-        desc: "Mobile field monitoring system for PLN to manage tree risk inspections and preventive maintenance near power lines.",
+        slug: "monitoring-observability",
+        img: "/grafana.png",
+        tag: "Monitoring & Observability",
+        title: "System Monitoring with Prometheus & Grafana",
+        desc: "System and application monitoring solution using Prometheus, Node Exporter, and Grafana to collect, monitor, and visualize CPU, memory, disk, and network metrics.",
         color: "text-orange-400",
       },
       {
@@ -136,7 +129,7 @@ export default function Projects() {
       Explore selected engineering & product work
     </p>
   </div>
-
+ 
   {/* RIGHT BUTTON */}
   <Link
     href="/projects/all"
